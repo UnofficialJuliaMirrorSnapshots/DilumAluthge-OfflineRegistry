@@ -19,7 +19,7 @@ cat $TRAVIS_BUILD_DIR/build/* || echo "No such file or directory"
 
 date
 rm -rf $HOME/.julia
-julia $JULIA_FLAGS $TRAVIS_BUILD_DIR/make.jl
+julia $JULIA_FLAGS $TRAVIS_BUILD_DIR/make.jl "$REGISTRY_NAME" "$REGISTRY_UUID" "$GIT_USER_NAME" "$GIT_USER_EMAIL"
 date
 
 ls -la $TRAVIS_BUILD_DIR/build
@@ -45,18 +45,6 @@ julia $JULIA_FLAGS -e '
     Pkg.add(Pkg.PackageSpec(name="PredictMD", rev="master",));
     Pkg.add(Pkg.PackageSpec(name="PredictMDExtra", rev="master",));
     Pkg.add(Pkg.PackageSpec(name="PredictMDFull", rev="master",));
-    Pkg.add("DataFrames");
-    Pkg.add("StatsBase");
-    '
-
-rm -rf $HOME/.julia
-julia $JULIA_FLAGS -e '
-    include("startup.jl");
-    include("default-environment.jl");
-    import Pkg;
-    Pkg.add(Pkg.PackageSpec(name="PredictMD", rev="develop",));
-    Pkg.add(Pkg.PackageSpec(name="PredictMDExtra", rev="develop",));
-    Pkg.add(Pkg.PackageSpec(name="PredictMDFull", rev="develop",));
     Pkg.add("DataFrames");
     Pkg.add("StatsBase");
     '
